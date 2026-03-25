@@ -1,0 +1,19 @@
+# Bitcoin PCA & Preprocessing Pipeline
+A Python pipeline that processes 1-minute BTC/USD data to demonstrate data cleaning, whitening, and Principal Component Analysis (PCA). It compresses market features into underlying trends and mathematically rebuilds the original price to test accuracy.
+
+## 🚀 Quick Start
+1. Install dependencies: `pip install numpy pandas matplotlib scikit-learn`
+2. Add data: Place a CSV named `btcusd_1-min_data.csv` (containing `Timestamp`, `Open`, `High`, `Low`, `Close`, `Volume`) in the same folder.
+3. Run: Execute the script. Close each pop-up graph to advance to the next step.
+
+## 🧠 How It Works
+1. **Clean & Scale:** Formats UNIX timestamps and uses `StandardScaler` to normalize all features to μ=0, σ=1. This prevents large numbers (like BTC price) from overpowering smaller ones (like volume).
+2. **Sphere (Whiten):** Calculates the covariance matrix and its eigenvectors to remove linear correlations. This transforms the highly correlated market data into statistically independent features.
+3. **PCA Compression:** Fits a 5-component PCA model to extract the Principal Components — the mathematical axes that explain the highest variance in the market movements.
+4. **Signal Reconstruction:** Projects the compressed PCA data back into the original feature space using only 1 or 2 components. Calculates MSE to prove how accurately the price can be rebuilt from a fraction of the data.
+
+## 📊 Visual Outputs
+- **Distributions:** Boxplots comparing raw vs. standardized data.
+- **Covariance Heatmaps:** Matrices proving correlations were removed after sphering.
+- **PCA Diagnostics:** Scree plot of explained variance and a heatmap of feature loadings.
+- **Reconstruction:** Time-series overlay of original price vs. rebuilt price, with error shaded in red.
